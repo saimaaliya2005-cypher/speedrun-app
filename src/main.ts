@@ -1,5 +1,5 @@
-import { PricingManager } from './pricing.ts';
-import { BentoAccordionManager } from './features-bento.ts';
+import { PricingManager } from './pricing';
+import { BentoAccordionManager } from './features-bento';
 
 document.addEventListener('DOMContentLoaded', () => {
   // ========================================================
