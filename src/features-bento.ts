@@ -9,8 +9,8 @@ export class BentoAccordionManager {
   private breakpointWidth: number = 768;
 
   constructor(
-    private bentoContainer: HTMLElement,
-    private accordionContainer: HTMLElement,
+    bentoContainer: HTMLElement,
+    accordionContainer: HTMLElement,
     private bentoCards: HTMLElement[],
     private accordionItems: HTMLElement[]
   ) {
