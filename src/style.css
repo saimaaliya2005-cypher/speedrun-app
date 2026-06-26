@@ -1,0 +1,695 @@
+/* ========================================================
+   1. COLOR PALETTE CONFIGURATION & VARIABLES (Custom Design System)
+   ======================================================== */
+:root {
+  /* Official Palette Hex Codes */
+  --color-arctic-powder: #F1F6F4;
+  --color-forsythia: #FFC801;
+  --color-nocturnal-expedition: #114C5A;
+  --color-mystic-mint: #D9E8E2;
+  --color-deep-saffron: #FF9932;
+  --color-oceanic-noir: #172B36;
+
+  /* UI Role Mappings */
+  --bg-main: var(--color-oceanic-noir);
+  --bg-card: rgba(17, 76, 90, 0.15);
+  --bg-card-hover: rgba(17, 76, 90, 0.25);
+  --border-color: rgba(217, 232, 226, 0.12);
+  --border-hover: rgba(255, 200, 1, 0.3);
+  --text-main: var(--color-arctic-powder);
+  --text-muted: var(--color-mystic-mint);
+  
+  --gradient-accent: linear-gradient(135deg, var(--color-forsythia) 0%, var(--color-deep-saffron) 100%);
+  --accent-glow: rgba(255, 200, 1, 0.15);
+  
+  /* Typography */
+  --font-header: 'JetBrains Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Micro-grid background pattern for high-fidelity dark mode */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(rgba(255, 200, 1, 0.02) 1px, transparent 1px),
+    radial-gradient(rgba(217, 232, 226, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: -20%;
+  left: -20%;
+  right: -20%;
+  bottom: -20%;
+  background: radial-gradient(circle at 75% 25%, rgba(17, 76, 90, 0.25) 0%, transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ========================================================
+   2. INITIAL LOADER (Performance: < 500ms Orchestration)
+   ======================================================== */
+#app-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-main);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.loader-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(217, 232, 226, 0.1);
+  border-top-color: var(--color-forsythia);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#app-container {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Layout Containers */
+header.site-header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-header);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--color-arctic-powder);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo span {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+}
+
+/* ========================================================
+   3. HERO SECTION
+   ======================================================= */
+.hero {
+  text-align: center;
+  padding: 6rem 0 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  font-family: var(--font-header);
+  font-size: 0.85rem;
+  color: var(--color-forsythia);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  background: rgba(255, 200, 1, 0.08);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 200, 1, 0.15);
+}
+
+.hero h1 {
+  font-family: var(--font-header);
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 span {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.hero-ctas {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  border: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--gradient-accent);
+  color: var(--color-oceanic-noir);
+  box-shadow: 0 4px 20px rgba(255, 200, 1, 0.25);
+}
+
+.btn-primary:hover {
+  opacity: 0.95;
+  box-shadow: 0 6px 24px rgba(255, 200, 1, 0.35);
+}
+
+.btn-secondary {
+  background: rgba(241, 262, 244, 0.05);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: rgba(241, 262, 244, 0.1);
+  border-color: rgba(217, 232, 226, 0.3);
+}
+
+/* ========================================================
+   4. FEATURE 2: BENTO GRID & ACCORDION SECTION
+   ======================================================== */
+.section-title {
+  font-family: var(--font-header);
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 3.5rem;
+  letter-spacing: -0.02em;
+}
+
+.section-title span {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.features-section {
+  margin-bottom: 8rem;
+}
+
+/* Desktop Bento Grid */
+#bento-grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 260px);
+  gap: 1.5rem;
+}
+
+.bento-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+  transition: 
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+/* Grid positions for Bento design */
+.bento-card:nth-child(1) { grid-column: span 7; }
+.bento-card:nth-child(2) { grid-column: span 5; }
+.bento-card:nth-child(3) { grid-column: span 5; }
+.bento-card:nth-child(4) { grid-column: span 7; }
+
+.bento-card .icon-wrapper {
+  position: absolute;
+  top: 2.5rem;
+  left: 2.5rem;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-forsythia);
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.bento-card h3 {
+  font-family: var(--font-header);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  z-index: 2;
+}
+
+.bento-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  z-index: 2;
+  max-width: 90%;
+}
+
+/* Bento Hover & Active State matching MP4 Motion specifications */
+.bento-card:hover, .bento-card.active {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 25px var(--accent-glow);
+}
+
+.bento-card:hover .icon-wrapper, .bento-card.active .icon-wrapper {
+  border-color: var(--color-forsythia);
+  background: rgba(255, 200, 1, 0.08);
+}
+
+/* Subtle background glow on card active */
+.bento-card::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255, 200, 1, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+}
+
+.bento-card.active::after, .bento-card:hover::after {
+  opacity: 1;
+}
+
+/* Mobile Accordion Container (Hidden on Desktop) */
+#accordion-list-container {
+  display: none;
+}
+
+/* ========================================================
+   5. FEATURE 1: PRICING SECTION
+   ======================================================== */
+.pricing-section {
+  margin-bottom: 8rem;
+}
+
+.pricing-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  max-width: 580px;
+  margin: 0 auto 4rem;
+  backdrop-filter: blur(12px);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.control-group label {
+  font-family: var(--font-header);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.currency-dropdown {
+  background: var(--color-oceanic-noir);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 50px;
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.currency-dropdown:focus {
+  border-color: var(--color-forsythia);
+}
+
+/* Custom Toggle Switch for Billing Cycle */
+.switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.switch-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switch-label.active {
+  color: var(--color-forsythia);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+  transition: .3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 34px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--color-arctic-powder);
+  transition: .3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--color-nocturnal-expedition);
+  border-color: var(--color-forsythia);
+}
+
+input:checked + .slider::before {
+  transform: translateX(22px);
+  background-color: var(--color-forsythia);
+}
+
+.discount-badge {
+  font-family: var(--font-header);
+  background: rgba(255, 153, 50, 0.12);
+  color: var(--color-deep-saffron);
+  border: 1px solid rgba(255, 153, 50, 0.25);
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 50px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 28px;
+  padding: 3rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+  backdrop-filter: blur(8px);
+}
+
+.pricing-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 200, 1, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 200, 1, 0.06);
+}
+
+.pricing-card.featured {
+  border: 1px solid rgba(255, 200, 1, 0.4);
+  background: linear-gradient(180deg, rgba(17, 76, 90, 0.2) 0%, rgba(23, 43, 54, 0.4) 100%);
+  position: relative;
+}
+
+.pricing-card.featured::before {
+  content: "POPULAR ENGINE";
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-family: var(--font-header);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-forsythia);
+  letter-spacing: 0.1em;
+}
+
+.card-plan-name {
+  font-family: var(--font-header);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.price-value-container {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+/* Direct isolated targets */
+.price-num {
+  font-family: var(--font-header);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--color-arctic-powder);
+  letter-spacing: -0.04em;
+}
+
+.price-term {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.pricing-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+  flex-grow: 1;
+}
+
+.pricing-card ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--color-arctic-powder);
+}
+
+.pricing-card ul li svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-forsythia);
+  flex-shrink: 0;
+}
+
+/* ========================================================
+   6. RESPONSIVE BREAKPOINT REFLECTION (< 768px)
+   ======================================================== */
+@media (max-width: 768px) {
+  /* Hero Reflow */
+  .hero {
+    padding: 4rem 0 2rem;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Bento-to-Accordion Refactor (Strict context match rule) */
+  #bento-grid-container {
+    display: none; /* Hide Bento grid */
+  }
+
+  #accordion-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .accordion-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .accordion-item.active {
+    border-color: var(--color-forsythia);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px var(--accent-glow);
+  }
+
+  .accordion-header {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .accordion-title-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .accordion-title-group .icon-wrapper {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-forsythia);
+  }
+
+  .accordion-header h3 {
+    font-family: var(--font-header);
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .accordion-chevron {
+    color: var(--text-muted);
+    transition: transform 0.3s ease-out;
+  }
+
+  .accordion-item.active .accordion-chevron {
+    transform: rotate(0deg); /* When active, point up */
+    color: var(--color-forsythia);
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .accordion-body {
+    padding: 0 1.5rem 1.5rem 4rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Pricing Grid Reflow */
+  .pricing-controls {
+    flex-direction: column;
+    gap: 1.25rem;
+    border-radius: 24px;
+    padding: 1.5rem;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
